@@ -2,6 +2,7 @@ package com.musala.droneservice.controllers;
 
 import com.musala.droneservice.entities.ApiResponse;
 import com.musala.droneservice.entities.Drone;
+import com.musala.droneservice.entities.Medication;
 import com.musala.droneservice.enums.DroneModel;
 import com.musala.droneservice.services.DroneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class DroneController {
@@ -23,7 +26,7 @@ public class DroneController {
         return "Welcome the Drone Works";
     }
 
-    @PostMapping("/register-drone")
+    @PostMapping("/drone/create")
     public ApiResponse<Object> registerDrone(@RequestBody Drone drone) {
 
         //validation logic
@@ -42,6 +45,22 @@ public class DroneController {
         //save the drone to the database
         droneService.createDrone(drone);
         return new ApiResponse<>("Drone created", HttpStatus.CREATED, drone);
+    }
+
+    @PostMapping("/drone/load-drone")
+    public ApiResponse<Object> loadDrone(List<Medication> medications){
+        //Get an idle drone for loading
+        Drone idleDrone = droneService.getIdleDrone();
+        if(idleDrone == null){
+            return new ApiResponse<>("There are currently no idle drones",HttpStatus.EXPECTATION_FAILED);
+        }
+
+
+
+
+
+
+        return new ApiResponse<>("Drones loaded",HttpStatus.OK);
     }
 
 }

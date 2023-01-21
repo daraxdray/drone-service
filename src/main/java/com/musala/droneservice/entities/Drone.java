@@ -3,6 +3,7 @@ package com.musala.droneservice.entities;
 import com.musala.droneservice.enums.DroneModel;
 import com.musala.droneservice.enums.DroneState;
 import jakarta.persistence.*;
+import org.springframework.data.domain.Example;
 
 @Entity
 @Table(name = "drone")
@@ -66,17 +67,7 @@ public class Drone {
         return weightLimit;
     }
 
-    //Helps to know the empty properties
-    public String getEmptyProperty(){
-        String emptyProperties = "";
-        if(getModel() == null) emptyProperties += "Model, ";
-        if(getState() == null) emptyProperties += "State, ";
-        if(getSerialNumber() == null) emptyProperties += "Serial Number, ";
-        if(getBatteryCapacity() == 0) emptyProperties += "Battery Capacity, ";
-        if(getWeightLimit() == 0) emptyProperties += "Weight Limit ";
-        return emptyProperties;
 
-    }
 
     public void setWeightLimit(double weightLimit) {
         this.weightLimit = weightLimit;
@@ -97,5 +88,25 @@ public class Drone {
     public void setState(DroneState state) {
         this.state = state;
     }
+
+
+
+    //Helps to know the empty properties
+    public String getEmptyProperty(){
+        String emptyProperties = "";
+        if(getModel() == null) emptyProperties += "Model, ";
+        if(getState() == null) emptyProperties += "State, ";
+        if(getSerialNumber() == null) emptyProperties += "Serial Number, ";
+        if(getBatteryCapacity() == 0) emptyProperties += "Battery Capacity, ";
+        if(getWeightLimit() == 0) emptyProperties += "Weight Limit ";
+        return emptyProperties;
+
+    }
+
+    //Helps get an example to use for querying db
+    public Example<Drone> getExample(){
+        return  Example.of(this);
+    }
+
 }
 

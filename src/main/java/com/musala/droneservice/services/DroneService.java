@@ -1,5 +1,6 @@
 package com.musala.droneservice.services;
 import com.musala.droneservice.entities.Drone;
+import com.musala.droneservice.enums.DroneState;
 import com.musala.droneservice.repositories.DroneRepository;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,16 @@ public class DroneService {
         return droneRepository.findById(id).orElse(null) ;
     }
 
+    public Drone getIdleDrone(){
+        Drone idleDrone = new Drone();
+        idleDrone.setState(DroneState.IDLE);
+        return droneRepository.findOne(idleDrone.getExample()).orElse(null);
+    }
+
     public Drone getDroneBySerialNumber(String sn){
         Drone drone = new Drone();
         drone.setSerialNumber(sn);
-        Example<Drone> example = Example.of(drone);
-        return droneRepository.findOne(example).orElse(null);
+        return droneRepository.findOne(drone.getExample()).orElse(null);
 
     }
 
