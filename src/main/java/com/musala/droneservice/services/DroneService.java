@@ -25,6 +25,7 @@ public class DroneService {
     public Drone getDroneById(Long id){
         return droneRepository.findById(id).orElse(null) ;
     }
+
     public Drone getDroneBySerialNumber(String sn){
         Drone drone = new Drone();
         drone.setSerialNumber(sn);

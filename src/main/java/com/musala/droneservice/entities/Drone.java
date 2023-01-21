@@ -66,6 +66,18 @@ public class Drone {
         return weightLimit;
     }
 
+    //Helps to know the empty properties
+    public String getEmptyProperty(){
+        String emptyProperties = "";
+        if(getModel() == null) emptyProperties += "Model, ";
+        if(getState() == null) emptyProperties += "State, ";
+        if(getSerialNumber() == null) emptyProperties += "Serial Number, ";
+        if(getBatteryCapacity() == 0) emptyProperties += "Battery Capacity, ";
+        if(getWeightLimit() == 0) emptyProperties += "Weight Limit ";
+        return emptyProperties;
+
+    }
+
     public void setWeightLimit(double weightLimit) {
         this.weightLimit = weightLimit;
     }
