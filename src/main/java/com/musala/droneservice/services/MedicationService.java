@@ -1,5 +1,5 @@
 package com.musala.droneservice.services;
-import com.musala.droneservice.entities.Medication;
+import com.musala.droneservice.models.Medication;
 import com.musala.droneservice.repositories.MedicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,6 @@ public class MedicationService {
 
     public List<Medication> createAllMedication(List<Medication> medication){
         return MedicationRepository.saveAll(medication);
-    }
-
-    public List<Medication> createAllMedications(List<Medication> medications){
-        return MedicationRepository.saveAll(medications);
     }
 
     public Medication getMedicationById(Long id){
@@ -45,4 +41,8 @@ public class MedicationService {
         return "Medication deleted";
     }
 
+
+    public boolean medicationExists(Long id){
+        return MedicationRepository.existsById(id);
+    }
 }

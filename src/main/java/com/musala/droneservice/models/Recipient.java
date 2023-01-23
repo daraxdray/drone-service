@@ -1,4 +1,4 @@
-package com.musala.droneservice.entities;
+package com.musala.droneservice.models;
 
 import jakarta.persistence.*;
 

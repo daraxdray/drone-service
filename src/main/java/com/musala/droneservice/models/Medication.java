@@ -1,4 +1,4 @@
-package com.musala.droneservice.entities;
+package com.musala.droneservice.models;
 
 import jakarta.persistence.*;
 import org.springframework.data.domain.Example;
@@ -84,7 +84,7 @@ public class Medication {
         return this.code.matches(pattern);
     }
 
-    public String getEmptyProperty(){
+    public String isEmptyProperty(){
         String emptyProperties = "";
         if(getName() == null) emptyProperties += "Name, ";
         if(getWeight() <= 0) emptyProperties += "Weight, ";
@@ -94,8 +94,4 @@ public class Medication {
 
     }
 
-    //Helps get an example to use for querying db
-    public Example<Medication> getExample(){
-        return  Example.of(this);
-    }
 }

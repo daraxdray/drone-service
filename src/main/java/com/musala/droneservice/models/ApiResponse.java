@@ -1,22 +1,23 @@
-package com.musala.droneservice.entities;
+package com.musala.droneservice.models;
 
 import org.springframework.http.HttpStatus;
 
 public class ApiResponse<T>
 {
     public ApiResponse(String message, HttpStatus statusCode) {
+
         this.message = message;
-        this.statusCode = statusCode;
+        this.status = statusCode;
     }
 
     public ApiResponse(String message, HttpStatus statusCode, T data) {
         this.message = message;
-        this.statusCode = statusCode;
+        this.status = statusCode;
         this.data = data;
     }
 
     private String message;
-    private HttpStatus statusCode;
+    private HttpStatus status;
     private T data;
 
     public String getMessage() {
@@ -24,10 +25,11 @@ public class ApiResponse<T>
     }
 
     public HttpStatus getStatusCode() {
-        return statusCode;
+        return status;
     }
 
     public T getData() {
         return data;
     }
+
 }

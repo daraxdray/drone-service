@@ -1,16 +1,21 @@
-package com.musala.droneservice.entities;
+package com.musala.droneservice.models;
 
-import com.musala.droneservice.enums.DroneModel;
-import com.musala.droneservice.enums.DroneState;
+import com.musala.droneservice.utils.DroneModel;
+import com.musala.droneservice.utils.DroneState;
 import jakarta.persistence.*;
-import org.springframework.data.domain.Example;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 @Entity
 @Table(name = "drone")
 public class Drone {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
+    private static Log log = LogFactory.getLog(Drone.class);
 
     @Column(name = "serial_number", length = 100)
     private String serialNumber;
@@ -30,6 +35,14 @@ public class Drone {
     private DroneState state;
 
     public Drone() {}
+
+    public Drone(DroneModel model) {
+        this.model = model;
+    }
+
+    public Drone(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 
     public Drone(String serialNumber, DroneModel model, double weightLimit, int batteryCapacity, DroneState state) {
         this.serialNumber = serialNumber;
@@ -92,7 +105,7 @@ public class Drone {
 
 
     //Helps to know the empty properties
-    public String getEmptyProperty(){
+    public String isEmptyProperty(){
         String emptyProperties = "";
         if(getModel() == null) emptyProperties += "Model, ";
         if(getState() == null) emptyProperties += "State, ";
@@ -103,10 +116,10 @@ public class Drone {
 
     }
 
-    //Helps get an example to use for querying db
-    public Example<Drone> getExample(){
-        return  Example.of(this);
-    }
 
+    @PostLoad
+    public void logDroneBattery(){
+        log.info(String.format("[DRONE AUDIT][%s] current battery level is: %d%s",getSerialNumber(),getBatteryCapacity(),'%'));
+    }
 }
 
