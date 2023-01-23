@@ -37,7 +37,7 @@ public class DeliveryService {
     }
 
     //get all delivery list of drone
-    public List<Delivery> getInAllDeliveryListByDrone(Drone drone){
+    public List<Delivery> findAllDeliveryListByDrone(Drone drone){
         return deliveryRepository.findByDroneId(drone.getId());
     }
 

@@ -5,17 +5,20 @@ import com.musala.droneservice.utils.DroneState;
 import jakarta.persistence.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.Audited;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Audited
 @Table(name = "drone")
 public class Drone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-    private static Log log = LogFactory.getLog(Drone.class);
 
     @Column(name = "serial_number", length = 100)
     private String serialNumber;
@@ -30,9 +33,14 @@ public class Drone {
     @Column(name = "battery_capacity")
     private int batteryCapacity;
 
+
     @Enumerated(EnumType.STRING)
     @Column(name = "state")
     private DroneState state;
+
+    @Column(name = "log_date")
+    private LocalDateTime logDate;
+
 
     public Drone() {}
 
@@ -115,11 +123,9 @@ public class Drone {
         return emptyProperties;
 
     }
-
-
-    @PostLoad
-    public void logDroneBattery(){
-        log.info(String.format("[DRONE AUDIT][%s] current battery level is: %d%s",getSerialNumber(),getBatteryCapacity(),'%'));
+    //setting log date for audit
+    public void setLogDate(LocalDateTime logDate) {
+        this.logDate = logDate;
     }
 }
 

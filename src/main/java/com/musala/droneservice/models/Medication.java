@@ -84,6 +84,7 @@ public class Medication {
         return this.code.matches(pattern);
     }
 
+    //displays the list of empty properties;
     public String isEmptyProperty(){
         String emptyProperties = "";
         if(getName() == null) emptyProperties += "Name, ";

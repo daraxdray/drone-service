@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Configuration
@@ -17,6 +18,7 @@ public class DroneService {
     @Autowired
     private DroneRepository droneRepository;
 
+    //Ensures drone is created
     public Drone createDrone(Drone drone){
         return droneRepository.save(drone);
     }
@@ -101,11 +103,13 @@ public class DroneService {
         return "Drone deleted";
     }
 
-    @Scheduled(fixedRate = 20000)
+    @Scheduled(fixedRate = 60000)
     public void scheduleFixedRateTask() {
         List<Drone> drones = getDrones();
         for(Drone drone: drones){
+            drone.setLogDate(LocalDateTime.now());
             System.out.println(getDroneBattery(drone.getId()));
+            updateDrone(drone);
         }
     }
 
