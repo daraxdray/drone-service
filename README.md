@@ -27,6 +27,8 @@ Run the Spring Boot application.
 
 The application will be running at http://localhost:8080.
 
+_NB: The app has a periodic task to check drones battery levels and create history/audit event log for within interval of **30sec**_
+
 ### REST Endpoints
 
 ###### FOR A PRETTIER URL WE USE
@@ -39,7 +41,7 @@ The application will be running at http://localhost:8080.
 The following REST endpoints are available:
 
 ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
-∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
+Register Drone
 
     1. Endpoint: POST /ds/create-drone
 
@@ -66,7 +68,7 @@ Body --
 ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
-
+Load Drone with Medication Items
 
     2. Endpoint: POST /ds/load-drone-by-medication-items
 
@@ -88,16 +90,23 @@ _The endpoint will return a success message with the number of drones that were 
 ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
 
-
+Checking loaded medication items for a given drone
 
     3. Endpoint: GET "/ds/get-loaded-medications/{drone_id}
 
 The endpoint is used to get the list of medications loaded on a drone.
 
-**Sample Request** localhost:8080/ds/get-loaded-medications/2
+_**Sample Request** localhost:8080/ds/get-loaded-medications/2_
 
 
-    4. Endpoint GET "/ds/get-drone-battery-level/{drone_id}"
+Checking available drones for loading
+
+    Endpoint GET  ds/get-available-drones-for-loading
+
+
+Check drone battery level for a given drone
+
+    5. Endpoint GET "/ds/get-drone-battery-level/{drone_id}"
 
 The endpoint is used to get drone battery level information.
 
@@ -141,7 +150,7 @@ The endpoint is used to get drone battery level information.
 
     Endpoint POST "/ds/load-drone/{drone_id}/{medication_id}
 
-∞ Used to change the state of a drone to the any of the drone states
+∞ Used to change the state of a drone to  any of the drone states
 
     Endpoint: PUT /ds/change-drone-status/{drone_id}/{state}
 
