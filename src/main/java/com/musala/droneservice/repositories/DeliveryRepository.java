@@ -17,6 +17,6 @@ public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
     @Query("SELECT d.medication FROM Delivery d where d.drone.id = :id and d.deliveryStatus = :status")
     List<Object> findMedicationByDroneAndDeliveryStatus(Long id, boolean status);
 
-    @Query("SELECT d FROM Delivery d where d.drone.id = :id")
+    @Query("SELECT d FROM Delivery d where d.drone.id = :droneId")
     List<Delivery> findByDroneId(Long droneId);
 }
