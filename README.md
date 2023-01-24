@@ -27,7 +27,8 @@ Run the Spring Boot application.
 
 The application will be running at http://localhost:8080.
 
-_NB: The app has a periodic task to check drones battery levels and create history/audit event log for within interval of **30sec**_
+_NB: The database has been preloaded with dummy data for drones, medications, recipient and delivery tables 
+The app has a periodic task to check drones battery levels and create history/audit event log for within interval of **30sec**_
 
 ### REST Endpoints
 
