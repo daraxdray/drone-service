@@ -11,7 +11,7 @@ public interface DroneRepository extends JpaRepository<Drone, Long> {
     List<Drone> findByState(DroneState state);
 
     //It ensures drone battery is higher than 25% required to load a drone
-    @Query(value = "SELECT * FROM drone d WHERE d.state = 'IDLE' AND d.battery_capacity >= 25", nativeQuery = true)
+    @Query(value = "SELECT s FROM drone d WHERE d.state = 'IDLE' AND d.battery_capacity >= 25", nativeQuery = true)
     List<Drone> findByStateAndAbleBattery(DroneState state);
 
     //find the serial number
